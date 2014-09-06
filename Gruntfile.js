@@ -10,24 +10,20 @@ grunt.initConfig({
       separator: '\n \n',
     },
     dist: {
-      src: ["*.apib"],
+      src: ["source/*.apib", "source/*.md"],
       dest: 'dist/built.apib'
-    },
-    readme:{
-        src: ["*.apib"],
-        dest: 'Readme.md'
     }
   },
   watch: {
   scripts: {
-    files: ['source/*.apib', 'source/*.md'],
+    files: ['source/*.apib'],
     tasks: ['concat'],
     options: {
       spawn: false,
     },
   },
 },
-  clean: ['dist/*.apib', 'Readme.md']
+  clean: ['dist/*.apib'],
 });
   grunt.registerTask('default', [ 'clean','watch' ]);
 

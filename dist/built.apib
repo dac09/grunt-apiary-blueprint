@@ -1,294 +1,155 @@
 FORMAT: 1A
-HOST: http://www.google.com
+HOST: https://alpha-api.app.net
 
-# Store Metadata & Payments API
-Store API is a *aggregation* service to provide clients with access to data to drive their UIs
+# Real World API
+This API Blueprint demonstrates a real world example documenting a portion of [App.net API](http://developers.app.net).
 
-# Group Categories
-Returns Categories within Adrenalin **Store API**, going two levels down. (A Parent with two children)
+NOTE: This document is a **work in progress**.
 
-## Categories Collection [/categories]
+# Group Posts
+This section groups App.net post resources.
 
-### List all Categories [GET]
-+ Response 200 (application/json)
-
-        {
-            "resultCount": 1,
-            "categories": [
-                {
-                    "id": "crid%3A%2F%2Fschange.com%2Fe1128171-976f-4335-95ef-ce0062b65845",
-                    "isRoot": true,
-                    "minimumAge": "Not rated",
-                    "name": "Catalogue: BBC Store UK",
-                    "childCategories": [
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2Ffeca1b56-9ebc-45d0-9f08-19b6cfa90e0f",
-                            "minimumAge": "Not rated",
-                            "name": "Drama",
-                            "ordinal": 0
-                        },
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2F24769132-507a-441f-9e38-95e88ec6a6fd",
-                            "minimumAge": "Not rated",
-                            "name": "Lifestyle",
-                            "ordinal": 1
-                        },
-                        {
-                            "childCategories": [
-                                {
-                                    "id": "crid%3A%2F%2Fschange.com%2F10998ee7-7960-4aae-8ca2-b885ff072f32",
-                                    "minimumAge": "Not rated",
-                                    "name": "Top Gear",
-                                    "ordinal": 48
-                                }
-                            ],
-                            "id": "crid%3A%2F%2Fschange.com%2Fb970c1be-0329-464a-b7eb-ac048a685ae4",
-                            "minimumAge": "Not rated",
-                            "name": "Factual",
-                            "ordinal": 2
-                        },
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2Fc5824f74-37ad-4f16-b4ee-a55d3511562e",
-                            "minimumAge": "Not rated",
-                            "name": "Entertainment",
-                            "ordinal": 3
-                        },
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2F11c0f9f1-19dd-4902-943e-932862c4d0ba",
-                            "minimumAge": "Not rated",
-                            "name": "Arts & Culture",
-                            "ordinal": 4
-                        },
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2F02a0dc04-0eb1-4655-a5da-e94560dbdf11",
-                            "minimumAge": "Not rated",
-                            "name": "Comedy",
-                            "ordinal": 5
-                        },
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2Fe90781a3-9252-4141-ad4a-bd25b63021cd",
-                            "minimumAge": "Not rated",
-                            "name": "Children",
-                            "ordinal": 6
-                        }
-                    ]
-                }
-            ]
-        }
-
-
-## Category [/categories/{id}]
-A single Category object with its details, and childCategories going 2 levels down
+## Post [/stream/0/posts/{post_id}]
+A Post is the other central object utilized by the App.net Stream API. It has rich text and annotations which comprise all of the content a users sees in their feed. Posts are closely tied to the follow graph...
 
 + Parameters
-    + id (required, string, `crid%3A%2F%2Fschange.com%2Fe90781a3-9252-4141-ad4a-bd25b63021cd`) ... `id` of the Category to perform action with. Has example value.
+    + post_id (string, `1`) ... The id of the Post.
 
++ Model (application/json)
 
-### Retrieve a Category [GET]
-+ Response 200 (application/json)
+    ```js
+    {
+        "data": {
+            "id": "1", // note this is a string
+            "user": {
+                ...
+            },
+            "created_at": "2012-07-16T17:25:47Z",
+            "text": "@berg FIRST post on this new site #newsocialnetwork",
+            "html": "<span itemprop=\"mention\" data-mention-name=\"berg\" data-mention-id=\"2\">@berg</span> FIRST post on <a href=\"https://join.app.net\" rel=\"nofollow\">this new site</a> <span itemprop=\"hashtag\" data-hashtag-name=\"newsocialnetwork\">#newsocialnetwork</span>.",
+            "source": {
+                "client_id": "udxGzAVBdXwGtkHmvswR5MbMEeVnq6n4",
+                "name": "Clientastic for iOS",
+                "link": "http://app.net"
+            },
+            "machine_only": false,
+            "reply_to": null,
+            "thread_id": "1",
+            "num_replies": 3,
+            "num_reposts": 0,
+            "num_stars": 0,
+            "entities": {
+                "mentions": [{
+                    "name": "berg",
+                    "id": "2",
+                    "pos": 0,
+                    "len": 5
+                }],
+                "hashtags": [{
+                    "name": "newsocialnetwork",
+                    "pos": 34,
+                    "len": 17
+                }],
+                "links": [{
+                    "text": "this new site",
+                    "url": "https://join.app.net"
+                    "pos": 20,
+                    "len": 13
+                }]
+            },
+            "you_reposted": false,
+            "you_starred": false
+        },
+        "meta": {
+            "code": 200,
+        }
+    }
+    ```
 
-    <!-- + Header -->
+### Retrieve a Post [GET]
+Returns a specific Post.
 
-            <!-- X-My-Header: The Value -->
++ Response 200
 
-    + Body
+    [Post][]
 
-            { "resultCount":1,
-              "categories": [
-                {   "id": "crid%3A%2F%2Fschange.com%2F10998ee7-7960-4aae-8ca2-b885ff072f32",
-                    "isRoot": false,
-                    "minimumAge": "Not rated",
-                    "name": "Top Gear",
-                    "parentCategories": [
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2Fb970c1be-0329-464a-b7eb-ac048a685ae4"
-                        }
-                    ],
-                    "childCategories": [
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2F147046de-b60b-457f-b687-756acfefb06e",
-                            "minimumAge": "Not rated",
-                            "name": "Top Gear Series 1",
-                            "ordinal": 0
-                        },
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2Fe1a6cde2-7766-4fdb-afff-58ad47f1a63b",
-                            "minimumAge": "Not rated",
-                            "name": "(Test) Top Gear Category 2",
-                            "ordinal": 1
-                        },
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2F8b48d941-cd8a-445e-8a83-90a67b5398eb",
-                            "minimumAge": "Not rated",
-                            "name": "Top Gear Series 3",
-                            "ordinal": 2
-                        },
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2F61db4652-84ed-4878-a8a8-1af502f86f03",
-                            "minimumAge": "Not rated",
-                            "name": "Top Gear Series 4",
-                            "ordinal": 3
-                        },
-                        {
-                            "id": "crid%3A%2F%2Fschange.com%2F4e1bfd27-4ceb-435c-87ce-950d8a4e3b17",
-                            "minimumAge": "Not rated",
-                            "name": "Top Gear Series 5",
-                            "ordinal": 4
-                        }
-                    ]
+### Delete a Post [DELETE]
+Delete a Post. The current user must be the same user who created the Post. It returns the deleted Post on success.
 
-                  }
-                ]
-            }
++ Response 204
+
+## Posts Collection [/stream/0/posts]
+A Collection of posts.
+
++ Model (application/json)
+
+    ```js
+    {
+        "data": [
+            {
+                "id": "1", // note this is a string
+                ...
+            },
+            {
+                "id": "2",
+                ...
+            },
+            {
+                "id": "3",
+                ...
+            },
+        ],
+        "meta": {
+            "code": 200,
+        }
+    }
+    ```
+
+### Create a Post [POST]
+Create a new Post object. Mentions and hashtags will be parsed out of the post text, as will bare URLs...
+
++ Request
+
+    [Post][]
+
++ Response 201
+
+    [Post][]
+
+### Retrieve all Posts [GET]
+Retrieves all posts.
+
++ Response 200
+
+    [Posts Collection][]
+
+## Stars [/stream/0/posts/{post_id}/star]
+A User’s stars are visible to others, but they are not automatically added to your followers’ streams.
+
++ Parameters
+    + post_id (string, `1`) ... The id of the Post.
+
+### Star a Post [POST]
+Save a given Post to the current User’s stars. This is just a “save” action, not a sharing action.
+
+*Note: A repost cannot be starred. Please star the parent Post.*
+
++ Response 200
+
+    [Post][]
+
+### Unstar a Post [DELETE]
+Remove a Star from a Post.
+
++ Response 200
+
+    [Post][]
 
  
-# Group Products
-The products API to return available purchasable products for BBC Store
+#Group Mails
+This section groups App.net Mail resources.
 
-## Brands [/products/brands]
+## Mail [/stream/0/Mails/{Mail_id}]
+A Mail is the other central object utilized by the App.net Stream API. It has rich text and annotations which comprise all of the content a users sees in their feed. Mails are closely tied to the follow graph...
 
-### List all brands [GET]
-+ Response 200 (application/json)
-
-        {
-        "resultCount": 1,
-        "products": [
-        {
-          "id": "crid%3A%2F%2Fbbc.co.uk%2Fb%2F28343094",
-          "name": "Doctor Who",
-          "numberOfEpisodes": 1,
-          "sortName": "The ultimate doctor",
-          "type": "brand",
-          "titleCount": 1,
-          "images":[],
-          "listPrice": "1.99",
-          "currency": "",
-          "purchasedPrice": "",
-          "offerPrice":[
-                {
-                  "Value": "1.99",
-                  "id": "lp_8DQMHQEDPT2NZET4WT3VSZJVTUNTT5AQTT5VAXY4SMQUQ7SZQQAMSZREA8TBAZKEETTC7CUQNMWRSRR3XC2WSAJCZEMMHXT4",
-                  "originalOfferPrice": "1.99",
-                  "pricePromotionName": "list price",
-                  "rentalPeriod": "P365D"
-                }
-           ],
-           "has":[],
-           "is":[],
-           "originalLanguages":[],
-           "dubbedLanguages":[],
-           "captionLanguages":[],
-          "entitlementState": "NotEntitled",
-          "numberOfPurchases": 0,
-          "contents": [],
-          "categories": [
-           {
-             "id": "1ec36a94-75d5-4dce-8d07-8afad47ad2ef:8f3a2687-41a6-f5d8-adf6-14334efbf612",
-             "name": "Drama"
-           }
-          ],
-         "coupons": [
-                {
-                  "id": "1ec36a94-75d5-4dce-8d07-8afad47ad2ef:8f3a2687-41a6-f5d8-adf6-14334efbf612"
-                }
-              ],
-          "couponCount": 1,
-          "categoryCount": 0,
-          "childProducts": [
-        {
-        "id": "crid%3A%2F%2Fbbc.co.uk%2Fb%asdgasdga",
-        "name": "Doctor Who",
-        "numberOfEpisodes": 1,
-        "titleCount": 1,
-        "sortName": "Series 9",
-        "type": "series",
-        "images":[],
-        "longSynopsis": "This series does not have long sysnopsis however if there was one then it would get popualted here... This is les doctor. Apple a day, keeps me a way, yo.",
-        "mediumSynopsis": "The doctor is writing a medium synopsis, bro. So heres some stuff to make it medium.",
-        "shortSynopsis": "The doctor is writing a medium synopsis, bro.",
-        "childProducts": [
-          {
-            "id": "crid%3A%2F%2Fbbc.co.uk%2Fb%2F28343123",
-            "name": "Episode 1",
-            "sortName": "The first episode",
-            "type": "title",
-            "longSynopsis": "This series does not have long sysnopsis however if there was one then it would get popualted here... This is les doctor. Apple a day, keeps me a way, yo.",
-            "mediumSynopsis": "The doctor is writing a medium synopsis, bro. So heres some stuff to make it medium.",
-            "shortSynopsis": "The doctor is writing a medium synopsis, bro.",
-            "isViewedCompletely": false,
-            "onWishList": false,
-            "categoryCount": 0,
-            "groupCount": 0,
-            "seriesCount": 1,
-            "isPreview": false,
-            "isAdult": false,
-            "aliases":
-               [
-                {
-                  "value": "crid://bbc.co.uk/p/12443237",
-                  "type": "IngestedCRID",
-                  "organization": "eventis",
-                  "authority": "eventis",
-                  "encoding": "text"
-                },
-                {
-                  "value": "295b9e46-1587-4b85-8bc2-61afd23660e6",
-                  "type": "VodBackOfficeId",
-                  "organization": "eventis",
-                  "authority": "eventis",
-                  "encoding": "text"
-                }
-              ],
-            "encodingProfiles": [
-                {
-                  "Value": "ORIGINAL_HD",
-                  "compatible": "true"
-                }
-              ]
-            }
-        ]
-        }
-        {
-          "id": "crid%3A%2F%2Fbbc.co.uk%2Fb%2F28343123",
-          "name": "Special Episode",
-          "sortName": "Christmas Special",
-          "type": "title",
-          "images":[],
-          "longSynopsis": "This series does not have long sysnopsis however if there was one then it would get popualted here... This is les doctor. Apple a day, keeps me a way, yo.",
-          "mediumSynopsis": "The doctor is writing a medium synopsis, bro. So heres some stuff to make it medium.",
-          "shortSynopsis": "The doctor is writing a medium synopsis, bro.",
-          "isViewedCompletely": false,
-          "onWishList": false,
-          "categoryCount": 0,
-          "groupCount": 0,
-          "seriesCount": 1,
-          "isPreview": false,
-          "isAdult": false,
-          "aliases":
-             [
-              {
-                "value": "crid://bbc.co.uk/p/12443237",
-                "type": "IngestedCRID",
-                "organization": "eventis",
-                "authority": "eventis",
-                "encoding": "text"
-              },
-              {
-                "value": "295b9e46-1587-4b85-8bc2-61afd23660e6",
-                "type": "VodBackOfficeId",
-                "organization": "eventis",
-                "authority": "eventis",
-                "encoding": "text"
-              }
-            ],
-          "encodingProfiles": [
-              {
-                "Value": "ORIGINAL_HD",
-                "compatible": "true"
-              }
-            ]
-          }
-        ]
-        }
-        ]
-        }
+## Mail collection [/mail]
