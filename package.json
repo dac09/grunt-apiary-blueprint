@@ -1,7 +1,7 @@
 {
   "name": "store-api-specs",
   "version": "0.0.1",
-  "description": "Apiary Blueprints of Store API",
+  "description": "Apiary Blueprints of Sample API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
