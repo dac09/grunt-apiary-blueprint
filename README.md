@@ -8,14 +8,14 @@ source folder to a single file - dist/built.apib and also publishing through the
 
 ## Instructions
 
-1. Install the [Apiary Client](http://client.apiary.io/)
-2. Clone the repo, then install dependencies
+1. Clone the repo, then install dependencies
 
 ``` 
 cd grunt-apiary-blueprint/
 npm install
 ```
-**Note:** As part of the install process you will be asked your password to install the apiaryio gem. You can also run this manually using `sudo gem install apiaryio` if you wish.
+
+2. As part of the install process you will be asked your password to install the apiaryio gem. You can also run this manually using `sudo gem install apiaryio` if you wish.
 
 3. Copy `config.example.js` to `config.js` and set the `name` to match your API blueprint name
 and `key` the apiary api key obtained from https://login.apiary.io/tokens
