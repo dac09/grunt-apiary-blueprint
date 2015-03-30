@@ -2,7 +2,7 @@ grunt-apiary-blueprint
 ======================
 
 A grunt setup for dealing with apiary blueprints. Makes the workflow much easier, by concatonating multiple blueprints in the
-source folder to a single file - dist/built.apib and also publishing through the apiaryio gem.
+source folder to a single file - dist/apiary.apib and also publishing through the apiaryio gem.
 
 **Note**: Publishing from command line overwrites any changes made online,
 
