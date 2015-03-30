@@ -4,6 +4,7 @@ grunt-apiary-blueprint
 A grunt setup for dealing with apiary blueprints. Makes the workflow much easier, by concatonating multiple blueprints in the
 source folder to a single file - dist/built.apib and also publishing.
 
+## Instructions
 
 1. Install the [Apiary Client](http://client.apiary.io/)
 2. Clone the repo, then install dependencies
