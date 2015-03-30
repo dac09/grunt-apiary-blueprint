@@ -1,2 +1,3 @@
 #Ignore Node modules
 node_modules
+config.example.js
