@@ -39,4 +39,8 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-exec');
     grunt.registerTask('default', [ 'env:dev','clean','watch' ]);
+
+    // Specify the environment to publish to, defaults to dev
+    // e.g. grunt publish --env=shared 
+    grunt.registerTask('publish', [ 'env:'+(grunt.option("env")||'dev'),'exec:publish' ]);
 }
